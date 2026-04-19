@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Development Project</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #d9d9d9;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        /* Top blue bar */
+        .topbar {
+            background-color: blue;
+            padding: 10px;
+        }
+
+        .topbar input {
+            padding: 5px;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+        }
+
+        /* Left menu */
+        .sidebar {
+            width: 200px;
+            background-color: #ffff66;
+            padding: 20px;
+            height: 500px;
+        }
+
+        .sidebar ul {
+            list-style-type: disc;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: blue;
+        }
+
+        /* Main content */
+        .content {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .content h2 {
+            text-align: center;
+        }
+
+        .content img {
+            display: block;
+            margin: 20px auto;
+            width: 300px;
+        }
+
+        .content p {
+            width: 70%;
+            margin: auto;
+            font-size: 14px;
+            text-align: justify;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        WEB DEVELOPMENT PROJECT
+    </div>
+
+    <!-- Blue bar -->
+    <div class="topbar">
+        <input type="text" placeholder="Search...">
+    </div>
+
+    <!-- Main layout -->
+    <div class="container">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Contact us</a></li>
+                <li><a href="#">Doc</a></li>
+            </ul>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h2>My Web site</h2>
+
+            <img src="pic.jpg">
+
+            <p>
+                As the software industry moves into the second decade of the 21st century, 
+                software quality is increasingly becoming essential to all businesses and 
+                knowledge of software testing is becoming necessary for all software engineers. 
+                The course focus on the theoretical concepts of Software Testing with high 
+                emphasis on inclusion of the practical context which is equally needed to 
+                prepare the learner for the demands of this field in the workplace.
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>

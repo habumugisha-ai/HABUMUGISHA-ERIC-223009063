@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Registration Form</title>
+</head>
+<body>
+
+<h2>STUDENT REGISTRATION FORM</h2>
+
+<form method="post" action="insert.php">
+
+<table cellpadding="8">
+
+<tr>
+  <td width="200" align="left">FIRST NAME*</td>
+  <td><input type="text"></td>
+</tr>
+
+<tr>
+  <td align="left">LAST NAME *</td>
+  <td><input type="text"></td>
+</tr>
+
+<tr>
+  <td align="left">DATE OF BIRTH *</td>
+  <td>
+    <select><option>Day</option></select>
+    <select><option>Month</option></select>
+    <select><option>Year</option></select>
+  </td>
+</tr>
+
+<tr>
+  <td align="left">EMAIL *</td>
+  <td><input type="email"></td>
+</tr>
+
+<tr>
+  <td align="left">MOBILE *</td>
+  <td><input type="tel"></td>
+</tr>
+
+<tr>
+  <td align="left">GENDER *</td>
+  <td>
+    <input type="radio" name="gender"> Male
+    <input type="radio" name="gender"> Female
+  </td>
+</tr>
+
+<tr>
+  <td align="left">ADDRESS</td>
+  <td><textarea></textarea></td>
+</tr>
+
+<tr>
+  <td align="left">CITY</td>
+  <td><input type="text"></td>
+</tr>
+
+<tr>
+  <td align="left">PIN CODE</td>
+  <td><input type="text"></td>
+</tr>
+
+<tr>
+  <td align="left">STATE</td>
+  <td><input type="text"></td>
+</tr>
+
+<tr>
+  <td align="left">COUNTRY</td>
+  <td>
+    <input type="checkbox"> India
+    <input type="text" placeholder="Other country">
+  </td>
+</tr>
+
+<tr>
+  <td align="left">HOBBIES</td>
+  <td>
+    <input type="checkbox"> Drawing
+    <input type="checkbox"> Singing
+    <input type="checkbox"> Dancing
+    <input type="checkbox"> Sketching<br>
+    <input type="checkbox" id="Checkbox"> Others
+    <label for="Checkbox">Others:</label>
+    <input type="text" placeholder="">
+  </td>
+</tr>
+
+<!-- ✅ QUALIFICATION SECTION TITLE -->
+<tr>
+  <td colspan="2"><b>Qualification Details</b></td>
+</tr>
+
+<!-- ✅ QUALIFICATION TABLE INSIDE -->
+<tr>
+  <td colspan="2">
+    <table border="0" width="100%" cellpadding="5" cellspacing="0">
+        <tr>
+          <th>SL.No.</th>
+          <th>Examination</th>
+          <th>Board</th>
+          <th>Percentage</th>
+          <th>Year</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Class X</td>
+          <td><input type="text" maxlength="10" placeholder="Max 10 chars"></td>
+          <td><input type="number" step="0.01" min="0" max="100" placeholder="e.g. 85.50"></td>
+          <td><input type="text" maxlength="4" placeholder="YYYY"></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Class XII</td>
+          <td><input type="text" maxlength="10"></td>
+          <td><input type="number" step="0.01" min="0" max="100"></td>
+          <td><input type="text" maxlength="4"></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Graduation</td>
+          <td><input type="text" maxlength="10"></td>
+          <td><input type="number" step="0.01" min="0" max="100"></td>
+          <td><input type="text" maxlength="4"></td>
+        </tr>
+      
+        <tr>
+          <td>4</td>
+          <td>Masters</td>
+          <td><input type="text" maxlength="10"></td>
+          <td><input type="number" step="0.01" min="0" max="100"></td>
+          <td><input type="text" maxlength="4"></td>
+        </tr>
+      </table>
+      
+  </td>
+</tr>
+
+<tr>
+  <td align="left">COURSE <br> APPLIED FOR*</td>
+  <td>
+    <input type="radio" name="course"> BCA
+    <input type="radio" name="course"> B.Com
+    <input type="radio" name="course"> B.Sc
+    <input type="radio" name="course"> B.A
+  </td>
+</tr>
+
+<tr>
+  <td></td>
+  <td>
+    <button type="submit">Submit</button>
+    <button type="reset">Reset</button>
+  </td>
+</tr>
+
+</table>
+
+</form>
+
+</body>
+</html>

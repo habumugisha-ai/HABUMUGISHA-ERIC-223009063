@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Food & Drink Gallery - Ebenezer Hotel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* gallery & product card styles */
+        .gallery-header {
+            text-align: center;
+            padding: 2rem 1rem 1rem;
+            background: #fffaf0;
+            border-bottom: 1px solid #e9e0d3;
+        }
+        .gallery-header h1 {
+            font-size: 2.5rem;
+            color: #2c3e2f;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .gallery-header p {
+            font-size: 1.15rem;
+            color: #5f6b53;
+            margin-top: 0.5rem;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0 1.5rem;
+        }
+        .product-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border: 1px solid #f0e4d8;
+            cursor: default;
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.15);
+        }
+        .card-img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+            cursor: pointer;
+        }
+        .product-card:hover .card-img {
+            transform: scale(1.02);
+        }
+        .card-content {
+            padding: 1.3rem 1.4rem 1.6rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .item-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #2c3e2f;
+            margin-bottom: 0.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .item-name {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .item-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #ff9800;
+            background: #fff2e0;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            letter-spacing: -0.2px;
+        }
+        .btn-order {
+            background: #ff9800;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            margin-top: auto;
+            align-self: flex-start;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .btn-order:hover {
+            background: #e68900;
+            transform: scale(0.97);
+            text-decoration: none;
+            color: white;
+        }
+        .note-taste {
+            text-align: center;
+            margin-top: 1.8rem;
+            font-size: 0.85rem;
+            color: #7a6a5a;
+            background: #fef7e8;
+            display: inline-block;
+            width: auto;
+            padding: 0.6rem 1.8rem;
+            border-radius: 60px;
+        }
+        .container-note {
+            display: flex;
+            justify-content: center;
+            margin: 0.5rem 0 0;
+        }
+        @media (max-width: 680px) {
+            .product-grid { gap: 1.3rem; }
+            .item-title { font-size: 1.4rem; }
+            .gallery-header h1 { font-size: 1.9rem; }
+        }
+
+        /* ----- LIGHTBOX (full image overlay) ----- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 12px;
+            cursor: default;
+        }
+        .close-lightbox {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            font-size: 40px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            background: rgba(0,0,0,0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: monospace;
+        }
+        .close-lightbox:hover {
+            background: #ff9800;
+            transform: scale(1.05);
+        }
+        @media (max-width: 600px) {
+            .close-lightbox {
+                top: 15px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">🏨 Ebenezer Hotel</div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="menu.html">Menu</a>
+        <a href="gallery.html" style="background:#5a7c5e; border-radius:5px;">Gallery</a>
+        <a href="order.php">Order</a>
+        <a href="contact.php">Contact</a>
+    </div>
+</div>
+
+<!-- GALLERY HEADER -->
+<div class="gallery-header">
+    <h1>🍽️ Fresh Flavors Gallery 🥤</h1>
+    <p>Discover our signature fish dishes, refreshing drinks & natural juices — made with love</p>
+</div>
+
+<div class="container">
+    <div class="product-grid">
+        
+        <!-- Grilled Fish -->
+        <div class="product-card">
+            <img class="card-img" src="C:\Users\user\Desktop\project3\grilled fish.jpg" alt="image(1).jpg" loading="lazy" onclick="openLightbox(this.src)">
+            <div class="card-content">
+                <div class="item-title">
+                    <span class="item-name">🐟 Grilled Fish</span>
+                    <span class="item-price">$10</span>
+                </div>
+                <a href="order.php" class="btn-order">🍴 Order Now →</a>
+            </div>
+        </div>
+        
+        <!-- Fried Fish -->
+        <div class="product-card">
+            <img class="card-img" src="C:\Users\user\Desktop\project3\filled fish.jpg" alt="Crispy fried fish with golden coating" loading="lazy" onclick="openLightbox(this.src)">
+            <div class="card-content">
+                <div class="item-title">
+                    <span class="item-name">🐟 Fried Fish</span>
+                    <span class="item-price">$12</span>
+                </div>
+                <a href="order.php" class="btn-order">🍴 Order Now →</a>
+            </div>
+        </div>
+        
+        <!-- Soda -->
+        <div class="product-card">
+            <img class="card-img" src="C:\Users\user\Desktop\project3\sada.jpg" alt="sada.jpg" loading="lazy" onclick="openLightbox(this.src)">
+            <div class="card-content">
+                <div class="item-title">
+                    <span class="item-name">🥤 Soda</span>
+                    <span class="item-price">$5</span>
+                </div>
+                <a href="order.php" class="btn-order">🍴 Order Now →</a>
+            </div>
+        </div>
+        
+        <!-- Milkshake -->
+        <div class="product-card">
+            <img class="card-img" src="C:\Users\user\Desktop\project3\Milk.jpg" alt="Creamy milk with whipped cream" loading="lazy" onclick="openLightbox(this.src)">
+            <div class="card-content">
+                <div class="item-title">
+                    <span class="item-name">🥛 Milkshake</span>
+                    <span class="item-price">$6</span>
+                </div>
+                <a href="order.php" class="btn-order">🍴 Order Now →</a>
+            </div>
+        </div>
+        
+        <!-- Orange Juice -->
+        <div class="product-card">
+            <img class="card-img" src="C:\Users\user\Desktop\project3\orange juicce.jpg" alt="Freshly squeezed orange juice" loading="lazy" onclick="openLightbox(this.src)">
+            <div class="card-content">
+                <div class="item-title">
+                    <span class="item-name">🍊 Orange Juice</span>
+                    <span class="item-price">$3</span>
+                </div>
+                <a href="order.php" class="btn-order">🍴 Order Now →</a>
+            </div>
+        </div>
+        
+        <!-- Mango Juice -->
+        <div class="product-card">
+            <img class="card-img" src="C:\Users\user\Desktop\project3\mango.jpg" alt="Sweet mango juice tropical style" loading="lazy" onclick="openLightbox(this.src)">
+            <div class="card-content">
+                <div class="item-title">
+                    <span class="item-name">🥭 Mango Juice</span>
+                    <span class="item-price">$4</span>
+                </div>
+                <a href="order.php" class="btn-order">🍴 Order Now →</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-note">
+        <div class="note-taste">
+            ✨ made with fresh ingredients | daily chef specials | order online or visit us ✨
+        </div>
+    </div>
+</div>
+
+<!-- LIGHTBOX MARKUP -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="close-lightbox" onclick="closeLightbox()">✕</span>
+    <img id="lightbox-img" class="lightbox-img" src="" alt="Full size preview">
+</div>
+
+<script>
+    function openLightbox(imgSrc) {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        lightboxImg.src = imgSrc;
+        lightbox.classList.add('active');
+        // prevent body scroll when lightbox is open
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // close on ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        }
+    });
+</script>
+
+<div class="footer">
+    <p>© 2026 Ebenezer Hotel | All Rights Reserved | Fresh Fish · Cool Drinks · Natural Juices</p>
+</div>
+
+</body>
+</html>
